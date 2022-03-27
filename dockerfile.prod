@@ -4,7 +4,6 @@ WORKDIR /app
 COPY package.json .
 RUN npm install
 COPY . .
-ENV REACT_APP_NAME='Rishabh bhai kya haal hai'
 EXPOSE 3000
 RUN npm run build
 

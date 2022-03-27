@@ -1,13 +1,15 @@
 version: "3"
 services:
   react-app:
-    build: .
-    ports:
-      - "4000:3000"
-    volumes:
-      - "./src:/app/src:ro"
-    env_file:
-      - "./.env"
-    environment:
-      - REACT_APP_NAME=sanjeev
-      - REACT_APP_URL=hello  
+    build:
+      context: .
+      dockerfile: dockerfile.dev
+    # ports:
+    #   - "4000:3000"
+    # volumes:
+    #   - "./src:/app/src:ro"
+    # env_file:
+    #   - "./.env"
+    # environment:
+    #   - REACT_APP_NAME=sanjeev
+    #   - REACT_APP_URL=hello

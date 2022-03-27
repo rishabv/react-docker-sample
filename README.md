@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+=> create a dockerfile into the root direrctory of the project and write the steps.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+=> create dockerignore file and add some file/folder names you want not to include in the docker image.
 
-## Available Scripts
+=> after writing the docker file, run 
+the command in the folder directory
 
-In the project directory, you can run:
+# docker build -t <image name> .
 
-### `npm start`
+=> -t stands for naming the image name, if we don't want to give image name you can run 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# docker build .
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+=> After this command an image will be created and we can list the images by running 
 
-### `npm test`
+# docker image ls
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+=> Now the latest image will be listed on top and we can run a container by using following command
 
-### `npm run build`
+# docker run -d -p 4000:3000 --name <container name> <image name>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+=> --name stands for container name.
+=> -p stands for defining ports ex 8080:3000
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+=> Now we open the port 4000 into the browser and our app will be running on docker container port 4000
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+=> we can list the containers by runinng 
 
-### `npm run eject`
+# docker ps
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+=> and our containers will be listed with the status of each in case of multiple containers
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+=> every time we make changes to the code we have to rebuilt the image and run it to see the change on browser
+=> To reflect the change into the app we can run our container by using this command
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# docker run -v < our app directory path>:<containers directory path>:ro --env-file ./.env -d -p 4000:3000 --name  <container name> <image name>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+=> -v stands for defining the docker volume to keep updating the containers src folder sync with our app's src folder so that every time we change something in to the code that change will be relected in the docker running app. 
 
-## Learn More
+=> :ro stands for read only, means that your docker container's folder can only readour app's folder but can't modify it.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+=> --env-file tage stands for defining the environment variables file into the respective container.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+--> Now if want to manage these containers for different environments we can use docker comose for that to install 
+# sudo apt get docker-compose
 
-### Code Splitting
+create different files for different environments and write the syntax in docker-compose.yml, docker-compose-dev.yml and docker-compose-prod.yml as per the above files.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+=> run commands for dev using docker-compose for dev  environment
+# docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d --build
 
-### Analyzing the Bundle Size
+=> run commands for dev using docker-compose for prod environment
+# docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d --build
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
