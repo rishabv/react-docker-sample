@@ -5,7 +5,7 @@
 => after writing the docker file, run 
 the command in the folder directory
 
-# docker build -t <image name> .
+> docker build -t <image name> .
 
 => -t stands for naming the image name, if we don't want to give image name you can run 
 
